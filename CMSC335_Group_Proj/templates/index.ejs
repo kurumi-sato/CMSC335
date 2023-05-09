@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>New Student Form</title>
+</head>
+
+<body>
+	<h1>Welcome to CMSC335</h1>
+    <form action="http://localhost:<%- portNumber %>/processApplication" method="post">
+        <fieldset>
+            <legend>
+                <strong>Basic Information</strong>
+            </legend>
+            <label><strong>Name</strong>: <input type="text" name="name"/></label>
+            <br><br>
+            <label><strong>Email Address: </strong> <input type="Email" name="email"></label>
+            <br><br>
+            <label><strong>GPA: </strong> <input type="number" step="0.1" name="gpa"/></label>
+            <br><br>
+            <label>
+				<strong>What year are you?</strong>
+			</label>
+
+            <br>
+
+			<label for="Freshman">
+				<input type="radio"
+					id="Freshman"
+					name="year">Freshman
+			</label>
+			<label for="Sophomore">
+				<input type="radio"
+					id="Sophomore"
+					name="year">Sophomore
+			</label>
+			<label for="Junior">
+				<input type="radio"
+					id="Junior"
+					name="year">Junior
+			</label>
+            <label for="Senior">
+				<input type="radio"
+					id="Senior"
+					name="year">Senior
+			</label>
+        </fieldset>
+        <fieldset>
+            <legend>
+                <strong>A Little About You</strong>
+            </legend>
+            <label for="type" id="label-type">
+				Which option best describes you?
+			</label>
+
+			<select name="type" id="type">
+				<option value="extrovert">EXTROVERT</option>
+				<option value="introvert">INTROVERT</option>
+				<option value="ambivert">AMBIVERT</option>
+			</select>
+            
+            <br>
+
+            <label>Why did you take this class
+				<small>(Check all that apply)</small>
+			</label>
+            <br>
+			<!-- Input Type Checkbox -->
+			<label for="reason-1">
+				<input type="checkbox"
+					name="reason">To learn about Web Application Development with JavaScript</label>
+            <br>
+			<label for="reason-2">
+				<input type="checkbox"
+					name="reason">Required class for credits/major requirements</label>
+            <br>
+			<label for="reason-3">
+				<input type="checkbox"
+					name="reason">Have fun</label>
+            <br>
+			<label for="reason-4">
+				<input type="checkbox"
+					name="reason">Make friends</label>
+            <br>
+			<label for="reason-5">
+				<input type="checkbox"
+					name="reason" checked>Nelson</label>
+        </fieldset>
+        <fieldset>
+            <legend>
+                <strong>Anything you want to add?</strong>
+            </legend>
+			<textarea rows="5" cols="80" name="comment">
+			</textarea>
+        </fieldset>
+		<br>
+        <input type="reset"/>
+        <input type="submit" onclick="return confirm('Are you sure you want to submit your form?')"/>
+    </form>
+</body>
+</html>
