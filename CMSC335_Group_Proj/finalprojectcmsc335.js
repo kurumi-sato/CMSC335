@@ -20,40 +20,21 @@ app.get("/", (request, response) => {
 }); 
 
 
-app.get("/name1", (request, response) => {
+app.get("/confirmation", (request, response) => {
   const link = "http://localhost:" + portNumber + "/apply";
   const variables = {url: link};
-  response.render("name1", variables);
+  response.render("confirmation", variables);
 }); 
 
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.post("/name1", (request, response) => {
+app.post("/confirmation", (request, response) => {
   const { v1, v2, v3, v4 } =  request.body;
   const variables = { v1: v1, v2: v2, v3: v3, v4: v4 };
 
   response.render("name2", variables);
   /* Generating the HTML using welcome template */
   }); 
-
-
-app.get("/name3", (request, response) => {
-  const link = "http://localhost:" + portNumber + "/name3";
-  const variables = {url: link};
-  response.render("name3", variables);
-
-}); 
-
-app.use(bodyParser.urlencoded({extended:false}));
-
-app.post("/name3", (request, response) => {
-  const { v1 } =  request.body;
-    const variables = {email: v1}
-
-  response.render("name4", variables);
-
-  }); 
-
 
 
 
