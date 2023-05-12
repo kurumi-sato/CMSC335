@@ -14,8 +14,12 @@ const databaseAndCollection = {db: "CMSC335_DB", collection: "inserthere"};
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
+
+
+
 app.get("/", (request, response) => { 
   const variables = { portNumber: portNumber};
+  
   
   response.render('index', variables);
 }); 
@@ -25,6 +29,25 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.post("/processApplication", (request, response) => {
   const { name, email, gpa, year, type, reason, comment } =  request.body;
   const variables = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
+  processInsert(variables);
+
+  async function processInsert(variables) {
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+    try {
+        await client.connect();
+        await insertData(client, databaseAndCollection, variables);
+
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+  }
+
+async function insertData(client, databaseAndCollection, applicant) {
+    const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(applicant);
+}
   response.render("confirmation", variables);
 }); 
 
