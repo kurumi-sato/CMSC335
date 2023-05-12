@@ -15,27 +15,18 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
 app.get("/", (request, response) => { 
-
-  response.render('index');
-}); 
-
-
-app.get("/confirmation", (request, response) => {
-  const link = "http://localhost:" + portNumber + "/apply";
-  const variables = {url: link};
-  response.render("confirmation", variables);
+  const variables = { portNumber: portNumber};
+  
+  response.render('index', variables);
 }); 
 
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.post("/confirmation", (request, response) => {
-  const { v1, v2, v3, v4 } =  request.body;
-  const variables = { v1: v1, v2: v2, v3: v3, v4: v4 };
-
-  response.render("name2", variables);
-  /* Generating the HTML using welcome template */
-  }); 
-
+app.post("/processApplication", (request, response) => {
+  const { name, email, gpa, year, type, reason, comment } =  request.body;
+  const variables = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
+  response.render("confirmation", variables);
+}); 
 
 
 
