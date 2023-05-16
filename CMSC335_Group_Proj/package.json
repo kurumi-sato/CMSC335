@@ -4,19 +4,12 @@
   "description": "",
   "main": "finalprojectcmsc335.js",
   "scripts": {
-    "build": "npm install",
+    "build": "echo \"No build specified\" && exit 1",
     "test": "echo \"No test specified\" && exit 1",
-    "start": "node finalprojectcmsc335.js 3000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kurumi-sato/CMSC335.git"
+    "start": "echo \"No start specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kurumi-sato/CMSC335/issues"
-  },
   "homepage": "https://github.com/kurumi-sato/CMSC335#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
