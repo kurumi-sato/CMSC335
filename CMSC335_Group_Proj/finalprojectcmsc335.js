@@ -35,16 +35,16 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 app.post("/processApplication", (request, response) => {
   const { name, email, gpa, year, type, reason, comment } =  request.body;
-  const variables = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
-  processInsert(variables);
+  const v = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
+  processInsert(v);
   process();
 
 
-  async function processInsert(variables) {
+  async function processInsert(v) {
 
     try {
         await client.connect();
-        await insertData(client, databaseAndCollection, variables);
+        await insertData(client, databaseAndCollection, v);
 
     } catch (e) {
         console.error(e);
@@ -56,7 +56,6 @@ app.post("/processApplication", (request, response) => {
 async function insertData(client, databaseAndCollection, applicant) {
     const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(applicant);
 }
-
 
 
 async function process() {
