@@ -10,7 +10,7 @@ const portNumber = process.argv[2];
 
 const uri = "inserthere";
 
-const databaseAndCollection = {db: "CMSC335_DB", collection: "inserthere"};
+const databaseAndCollection = {db: "CMSC335_DB", collection: "STUDENT_LIST"};
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
@@ -47,7 +47,38 @@ app.post("/processApplication", (request, response) => {
 
 async function insertData(client, databaseAndCollection, applicant) {
     const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(applicant);
+
+  
 }
+
+process();
+async function process() {
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+try {
+  await client.connect();
+  let filter = {};
+  const cursor = client.db(databaseAndCollection.db)
+      .collection(databaseAndCollection.collection).find(filter);
+      
+      /* Turn this into a table to add as html code into the final page*/
+  const result = await cursor.toArray();
+  var htmlcode = "<table border='1'> </tr> <th>Name</th> <th>Year</th>  </tr> ";
+  result.forEach(element => {
+
+    htmlcode += '<tr>' + '<td> ' + element.name + ' </td> <td> ' + element.year + '</td> </tr>';
+  });
+
+  htmlcode += " </table>";
+  const variables = { table: htmlcode };
+  response.render("processAdminGFA", variables);
+} catch (e) {
+  console.error(e);
+} finally {
+  await client.close();
+}}
+
+
   response.render("confirmation", variables);
 }); 
 
