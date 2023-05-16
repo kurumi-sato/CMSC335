@@ -33,7 +33,7 @@ app.get("/", (request, response) => {
 
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.post("/processApplication", (request, response) => {
+app.post("/", (request, response) => {
   const { name, email, gpa, year, type, reason, comment } =  request.body;
   const v = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
   processInsert(v);
@@ -94,7 +94,4 @@ if (process.argv.length != 3) {
 }
 
 app.listen(portNumber);
-console.log(`Web server started and running at http://localhost:${portNumber}`);
-
-
-// Database Functions
+console.log(`Web server started and running at https://finalprojectcmsc335.onrender.com`);
