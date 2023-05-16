@@ -24,7 +24,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 
-app.get("/", (request, response) => { 
+app.get("/processApplication", (request, response) => { 
   const variables = { portNumber: portNumber};
   
   
