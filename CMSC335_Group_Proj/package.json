@@ -4,7 +4,7 @@
   "description": "",
   "main": "finalprojectcmsc335.js",
   "scripts": {
-    "build": "echo \"No build specified\" && exit 1",
+    "build": "node finalprojectcmsc335.js 3000",
     "test": "echo \"No test specified\" && exit 1",
     "start": "node index.js"
   },
