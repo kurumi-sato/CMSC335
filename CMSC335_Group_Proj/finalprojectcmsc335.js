@@ -77,15 +77,12 @@ try {
 
   htmlcode += " </table>";
   const variables = { table: htmlcode };
-  response.render("processAdminGFA", variables);
+  response.render("confirmation", variables);
 } catch (e) {
   console.error(e);
 } finally {
   await client.close();
 }}
-
-
-  response.render("confirmation", variables);
 }); 
 
 
