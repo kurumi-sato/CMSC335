@@ -8,14 +8,6 @@ app.set("view engine", "ejs");
 
 const portNumber = process.argv[2];
 
-const uri = "inserthere";
-
-const databaseAndCollection = {db: "CMSC335_DB", collection: "STUDENT_LIST"};
-
-
-
-
-
 app.get("/", (request, response) => { 
   const variables = { portNumber: portNumber};
   
