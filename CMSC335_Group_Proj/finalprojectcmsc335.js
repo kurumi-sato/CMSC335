@@ -11,7 +11,6 @@ const portNumber = process.argv[2];
 const uri = "inserthere";
 
 const databaseAndCollection = {db: "CMSC335_DB", collection: "STUDENT_LIST"};
-const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
 
