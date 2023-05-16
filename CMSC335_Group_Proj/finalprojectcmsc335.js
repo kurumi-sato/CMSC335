@@ -31,6 +31,7 @@ app.post("/processApplication", (request, response) => {
   const variables = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
   processInsert(variables);
 
+
   async function processInsert(variables) {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -47,13 +48,9 @@ app.post("/processApplication", (request, response) => {
 
 async function insertData(client, databaseAndCollection, applicant) {
     const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(applicant);
-
-  
 }
 
-process();
-async function process() {
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 try {
   await client.connect();
@@ -76,7 +73,7 @@ try {
   console.error(e);
 } finally {
   await client.close();
-}}
+}
 
 
   response.render("confirmation", variables);
