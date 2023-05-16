@@ -24,7 +24,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 
-app.get("/processApplication", (request, response) => { 
+app.get("/", (request, response) => { 
   const variables = { portNumber: portNumber};
   
   
@@ -33,7 +33,7 @@ app.get("/processApplication", (request, response) => {
 
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.post("/", (request, response) => {
+app.post("/processApplication", (request, response) => {
   const { name, email, gpa, year, type, reason, comment } =  request.body;
   const v = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
   processInsert(v);
