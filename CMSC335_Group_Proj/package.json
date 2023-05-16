@@ -4,9 +4,9 @@
   "description": "",
   "main": "finalprojectcmsc335.js",
   "scripts": {
-    "build": "node finalprojectcmsc335.js 3000",
+    "build": "echo \"No build specified\" && exit 1",
     "test": "echo \"No test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "echo \"No test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
