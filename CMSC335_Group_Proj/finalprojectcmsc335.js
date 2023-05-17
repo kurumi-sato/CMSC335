@@ -91,6 +91,13 @@ if (process.argv.length != 3) {
   process.stdout.write(`Usage ${process.argv[1]} port Number`);
   process.exit(1);
 }
+const http = require('http');
+const port = process.env.PORT || 5000;
+const server = http.createServer(app);
+
+server.listen(port, () => {
+  console.log(`Started on port ${port}`);
+});
 
 const filename = process.argv[2];
 
@@ -123,6 +130,5 @@ console.log(`Web server started and running at http://localhost:${portNumber}`);
 
 //app.listen(portNumber);
 console.log(`Web server started and running at https://finalprojectcmsc335.onrender.com`);
-
 
 
