@@ -43,8 +43,7 @@ app.post("/processApplication", async (request, response) => {
     name : request.body.name,
     email : request.body.email,
     gpa : request.body.gpa, 
-    year : request.body.year, 
-    learn : request.body.name, 
+    year : request.body.year,
     reason : reason, 
     comment : request.body.comment
   };
