@@ -44,6 +44,7 @@ app.post("/processApplication", async (request, response) => {
     email : request.body.email,
     gpa : request.body.gpa, 
     year : request.body.year,
+    type: request.body.type,
     reason : reason, 
     comment : request.body.comment
   };
@@ -61,7 +62,8 @@ app.post("/processApplication", async (request, response) => {
       gpa : request.body.gpa, 
       year : request.body.year,
       reason : reason, 
-      comment : request.body.comment} ;
+      comment : request.body.comment,
+      type : request.body.type } ;
     response.render("confirmation", variables);
 }); 
 
