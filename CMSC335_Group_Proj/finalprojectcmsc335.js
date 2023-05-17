@@ -43,7 +43,7 @@ app.post("/processApplication", async (request, response) => {
     });
 
     htmlcode += " </table>";
-    const variables = { name: name, email: email, gpa: gpa, year: year.value, type: type, reason:reason, comment:comment, table: htmlcode };
+    const variables = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment, table: htmlcode };
     response.render("confirmation", variables);
 }); 
 
