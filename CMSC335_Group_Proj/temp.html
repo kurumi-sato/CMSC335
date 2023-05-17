@@ -3,137 +3,36 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>New Student Form</title>
+	<title>Application Confirmation</title>
+	<style>
+		body {
+			background-color: lightblue;
+			font-family: Georgia, serif;
+		}
+	</style>
 </head>
 
 <body>
-	<h1>Welcome to CMSC335</h1>
-	<h2> Please fill this out before the first day of class</h2>
-    <form action="/processApplication" method="post">
-        <fieldset>
-            <legend>
-                <strong>Basic Information</strong>
-            </legend>
-            <label><strong>Name</strong>: <input type="text" name="name"/></label>
-            <br><br>
-            <label><strong>Email Address: </strong> <input type="Email" name="email"></label>
-            <br><br>
-            <label><strong>GPA: </strong> <input type="number" step="0.1" name="gpa"/></label>
-            <br><br>
-            <label>
-				<strong>What year are you?</strong>
-			</label>
+	<h1>Applicants Data</h1>
+	<form action="/clear" method="post">
+		<strong>Name: </strong><%- name %><br><br>
+		<strong>Email Address: </strong><%- email %><br><br>
+		<strong>GPA: </strong><%- gpa %><br><br>
+        <strong>Year: </strong><%- year %><br><br>
+        <strong>Personality Type: </strong><%- type %><br><br>
+        <strong>You're taking the class because: </strong><%- reason %><br><br>
+        <strong>Background Information: </strong>
+		<br><br>
+		<%- comment %>
 
-            <br>
-
-			<label for="Freshman">
-				<input type="radio"
-					id="Freshman"
-					name="year" value="Freshman">Freshman
-			</label>
-			<label for="Sophomore">
-				<input type="radio"
-					id="Sophomore"
-					name="year" value="Sophomore">Sophomore
-			</label>
-			<label for="Junior">
-				<input type="radio"
-					id="Junior"
-					name="year" value="Junior">Junior
-			</label>
-            <label for="Senior">
-				<input type="radio"
-					id="Senior"
-					name="year" value="Senior">Senior
-			</label>
-        </fieldset>
-        <fieldset>
-            <legend>
-                <strong>A Little About You</strong>
-            </legend>
-            <label for="type" id="label-type">
-				Which option best describes you?
-			</label>
-
-			<select name="type" id="type">
-				<option value="extrovert">EXTROVERT</option>
-				<option value="introvert">INTROVERT</option>
-				<option value="ambivert">AMBIVERT</option>
-			</select>
-            
-            <br>
-
-            <label>Why did you take this class
-				<small>(Check all that apply)</small>
-			</label>
-            <br>
-			<!-- Input Type Checkbox -->
-			<label for="reason-1">
-				<input type="checkbox"
-					name="learn" value="To learn about Web Application Development with JavaScript">To learn about Web Application Development with JavaScript</label>
-            <br>
-			<label for="reason-2">
-				<input type="checkbox"
-					name="required" value="Required class for credits/major requirements">Required class for credits/major requirements</label>
-            <br>
-			<label for="reason-3">
-				<input type="checkbox"
-					name="fun" value="Have fun">Have fun</label>
-            <br>
-			<label for="reason-4">
-				<input type="checkbox"
-					name="friends" value="Make friends">Make friends</label>
-            <br>
-			<label for="reason-5">
-				<input type="checkbox"
-					name="Nelson" value="Nelson" checked>Nelson</label>
-        </fieldset>
-
-		<fieldset>
-			<legend>
-				<strong>Draw your favorite animal</strong>
-			</legend>
-
-			<canvas id="canvas" width="500" height="250" style="border:1px solid #000000;"></canvas>
-			<pre>
-			Move the mouse in the above area.
-			Press enter to change to erase mode.
-			Press enter again to change to drawing mode.
-			</pre> 
-
-			<script>
-				"use strict";
-		
-				let color = "red",
-					sideLength = 5; 
-				
-				document.onmousemove = (evt) => {
-					let context = document.getElementById("canvas").getContext("2d");
-					context.fillStyle = color;
-					context.fillRect(evt.pageX - 20, evt.pageY - 525, sideLength, sideLength);
-				};
-				
-				document.onkeypress = () => {
-					if (color === "red") {
-						color = "white";
-						sideLength = 500;
-					} else {
-						color = "red";
-						sideLength = 5;
-					}
-				};
-			</script>
-
-		</fieldset>
-        <fieldset>
-            <legend>
-                <strong>Anything you want to add?</strong>
-            </legend>
-			<textarea rows="5" cols="80" name="comment"></textarea>
-        </fieldset>
-		<br>
-        <input type="reset"/>
-        <input type="submit" onclick="return confirm('Are you sure you want to submit your form?')"/>
-    </form>
+		<br><br>
+	<div>
+		<strong>List of Students Enrolled in Class: </strong><br>
+		<%- table %><br><br>
+		<a href="/">HOME</a>
+	</div>
+	<input type="submit" value="Remove All Students" onclick="return confirm('Are you sure you want to delete all students?')"/>
+	</form>
 </body>
+
 </html>

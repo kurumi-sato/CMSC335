@@ -14,7 +14,7 @@
 
 <body>
 	<h1>Applicants Data</h1>
-
+	<form action="/clear" method="post">
 		<strong>Name: </strong><%- name %><br><br>
 		<strong>Email Address: </strong><%- email %><br><br>
 		<strong>GPA: </strong><%- gpa %><br><br>
@@ -29,9 +29,10 @@
 	<div>
 		<strong>List of Students Enrolled in Class: </strong><br>
 		<%- table %><br><br>
-		<button onclick="removeStudents()">Remove All Students </button><br>
 		<a href="/">HOME</a>
 	</div>
+	<input type="submit" value="Remove All Students" onclick="return confirm('Are you sure you want to delete all students?')"/>
+	</form>
 </body>
 
 </html>

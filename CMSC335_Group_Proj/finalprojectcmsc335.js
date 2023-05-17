@@ -16,6 +16,7 @@ const password = process.env.MONGO_DB_PASSWORD;
 const databaseAndCollection = {db: process.env.MONGO_DB_NAME, collection:process.env.MONGO_COLLECTION};
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { render } = require("ejs");
 
 const uri = `mongodb+srv://${userName}:${password}@cluster0.zho1gsz.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -65,7 +66,16 @@ app.post("/processApplication", async (request, response) => {
       comment : request.body.comment,
       type : request.body.type } ;
     response.render("confirmation", variables);
-}); 
+});
+
+app.post("/clear", async (request, response) => {
+  await removeStudents();
+
+  const variables = { portNumber: portNumber};
+  
+  
+  response.render('index', variables);
+});
 
 async function processInsert(info) {
   try {
@@ -115,25 +125,6 @@ async function removeStudents() {
       return result.deletedCount;
   }
 }
-
-async function removeStudents() {
-  result = null;
-  try {
-      await client.connect();
-      console.log("***** Clearing Collection *****");
-      result = await client.db(databaseAndCollection.db)
-      .collection(databaseAndCollection.collection)
-      .deleteMany({});
-      console.log(`Deleted student ${result.deletedCount}`);
-  } catch (e) {
-      console.error(e);
-  } finally {
-      await client.close();
-      return result.deletedCount;
-  }
-}
-
-
 
 
 process.stdin.setEncoding("utf8"); /* encoding */
