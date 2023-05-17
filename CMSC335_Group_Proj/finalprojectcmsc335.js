@@ -56,7 +56,12 @@ app.post("/processApplication", async (request, response) => {
     });
 
     htmlcode += " </table>";
-    const variables = { table: htmlcode };
+    const variables = { table: htmlcode, name : request.body.name,
+      email : request.body.email,
+      gpa : request.body.gpa, 
+      year : request.body.year,
+      reason : reason, 
+      comment : request.body.comment} ;
     response.render("confirmation", variables);
 }); 
 
