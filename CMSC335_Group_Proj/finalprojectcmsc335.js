@@ -39,7 +39,7 @@ app.post("/processApplication", async (request, response) => {
   var htmlcode = "<table border='1'> </tr> <th>Name</th> <th>Year</th>  </tr> ";
     students.forEach(element => {
 
-      htmlcode += '<tr>' + '<td> ' + element.name + ' </td> <td> ' + element.year.value + '</td> </tr>';
+      htmlcode += '<tr>' + '<td> ' + element.name + ' </td> <td> ' + element.year + '</td> </tr>';
     });
 
     htmlcode += " </table>";
