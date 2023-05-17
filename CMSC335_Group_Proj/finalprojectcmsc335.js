@@ -32,9 +32,23 @@ app.get("/", (request, response) => {
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.post("/processApplication", async (request, response) => {
-  const { name, email, gpa, year, type, reason, comment } =  request.body;
-  const v = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
-  await processInsert(v);
+  reason = "";
+  r = [request.body.learn, request.body.required, request.body.fun, request.body.friends, request.body.Nelson];
+  r.forEach(e => {
+    if (e != undefined) {
+      reason += e + ", "
+    }
+  });
+  const info = { 
+    name : request.body.name,
+    email : request.body.email,
+    gpa : request.body.gpa, 
+    year : request.body.year, 
+    learn : request.body.name, 
+    reason : reason, 
+    comment : request.body.comment
+  };
+  await processInsert(info);
   const students = await processTable();
   var htmlcode = "<table border='1'> </tr> <th>Name</th> <th>Year</th>  </tr> ";
     students.forEach(element => {
@@ -43,14 +57,14 @@ app.post("/processApplication", async (request, response) => {
     });
 
     htmlcode += " </table>";
-    const variables = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment, table: htmlcode };
+    const variables = { table: htmlcode };
     response.render("confirmation", variables);
 }); 
 
-async function processInsert(v) {
+async function processInsert(info) {
   try {
       await client.connect();
-      const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(v);
+      const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(info);
 
   } catch (e) {
       console.error(e);
@@ -59,9 +73,6 @@ async function processInsert(v) {
   }
 }
 
-async function insertData(client, databaseAndCollection, applicant) {
-    const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(applicant);
-}
 
 
 async function processTable() {
@@ -82,6 +93,23 @@ async function processTable() {
   }
 }
 
+async function removeStudents() {
+  result = null;
+  try {
+      await client.connect();
+      console.log("***** Clearing Collection *****");
+      result = await client.db(databaseAndCollection.db)
+      .collection(databaseAndCollection.collection)
+      .deleteMany({});
+      console.log(`Deleted student ${result.deletedCount}`);
+  } catch (e) {
+      console.error(e);
+  } finally {
+      await client.close();
+      return result.deletedCount;
+  }
+}
+
 
 
 
@@ -91,13 +119,10 @@ if (process.argv.length != 3) {
   process.stdout.write(`Usage ${process.argv[1]} port Number`);
   process.exit(1);
 }
-const http = require('http');
-const port = process.env.PORT || 5000;
-const server = http.createServer(app);
+const portNumber = process.argv[2];
 
-server.listen(port, () => {
-  console.log(`Started on port ${port}`);
-});
+app.listen(portNumber);
+console.log(`Web server started and running at http://localhost:${portNumber}`);
 
 const filename = process.argv[2];
 
@@ -116,11 +141,6 @@ process.stdin.on("readable", function () {
       process.stdin.resume();
     }
 });
-
-const portNumber = process.argv[2];
-
-app.listen(portNumber);
-console.log(`Web server started and running at http://localhost:${portNumber}`);
 
 
 /*if (process.argv.length != 3) {
