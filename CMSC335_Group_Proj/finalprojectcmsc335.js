@@ -110,6 +110,23 @@ async function removeStudents() {
   }
 }
 
+async function removeStudents() {
+  result = null;
+  try {
+      await client.connect();
+      console.log("***** Clearing Collection *****");
+      result = await client.db(databaseAndCollection.db)
+      .collection(databaseAndCollection.collection)
+      .deleteMany({});
+      console.log(`Deleted student ${result.deletedCount}`);
+  } catch (e) {
+      console.error(e);
+  } finally {
+      await client.close();
+      return result.deletedCount;
+  }
+}
+
 
 
 
@@ -150,5 +167,3 @@ process.stdin.on("readable", function () {
 
 //app.listen(portNumber);
 console.log(`Web server started and running at https://finalprojectcmsc335.onrender.com`);
-
-

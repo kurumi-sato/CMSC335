@@ -4,13 +4,21 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Application Confirmation</title>
+	<style>
+		body {
+			background-color: lightblue;
+			font-family: Georgia, serif;
+		}
+	</style>
 </head>
 
 <body>
 	<h1>Applicants Data</h1>
 	<div>
 		<strong>List of Students Enrolled in Class: </strong><br>
-		<%- table %><br>
+		<%- table %><br><br>
+		<button onclick="removeStudents()">Remove All Students </button><br>
+		<a href="/">HOME</a>
 	</div>
 </body>
 

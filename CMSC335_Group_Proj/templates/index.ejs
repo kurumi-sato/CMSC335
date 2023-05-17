@@ -4,11 +4,33 @@
 <head>
 	<meta charset="utf-8" />
 	<title>New Student Form</title>
+
+	<style>
+		body {
+			background-color: lightblue;
+			font-family: Georgia, serif;
+			
+		}
+
+		h1 {
+			font-family:Verdana, Geneva, Tahoma, sans-serif;
+ 
+		}
+
+		fieldset {
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+          border-radius: 8px;
+		  background-color: lightyellow;
+        }
+		canvas {
+			background-color: white;
+		}
+	</style>
 </head>
 
 <body>
 	<h1>Welcome to CMSC335</h1>
-	<h2> Please fill this out before the first day of class</h2>
     <form action="/processApplication" method="post">
         <fieldset>
             <legend>
@@ -47,6 +69,7 @@
 					name="year" value="Senior">Senior
 			</label>
         </fieldset>
+	<br>
         <fieldset>
             <legend>
                 <strong>A Little About You</strong>
@@ -88,6 +111,7 @@
 				<input type="checkbox"
 					name="Nelson" value="Nelson" checked>Nelson</label>
         </fieldset>
+	<br>
 
 		<fieldset>
 			<legend>
@@ -106,11 +130,16 @@
 		
 				let color = "red",
 					sideLength = 5; 
+
+				
 				
 				document.onmousemove = (evt) => {
 					let context = document.getElementById("canvas").getContext("2d");
+					let rect = document.getElementById("canvas").getBoundingClientRect();
+
+	
 					context.fillStyle = color;
-					context.fillRect(evt.pageX - 20, evt.pageY - 525, sideLength, sideLength);
+					context.fillRect(evt.clientX - rect.x, evt.clientY - rect.y, sideLength, sideLength);
 				};
 				
 				document.onkeypress = () => {
@@ -125,6 +154,7 @@
 			</script>
 
 		</fieldset>
+		<br>
         <fieldset>
             <legend>
                 <strong>Anything you want to add?</strong>
