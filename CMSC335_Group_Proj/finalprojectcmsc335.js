@@ -142,23 +142,6 @@ console.log(`Web server started and running at http://localhost:${portNumber}`);
 
 const filename = process.argv[2];
 
-const prompt = "Type stop to shutdown the server: ";
-process.stdout.write(prompt);
-
-process.stdin.on("readable", function () {
-  let dataInput = process.stdin.read();
-  let command = dataInput.trim();
-  if (command === "stop") {
-      console.log("Shutting down the server");
-      process.exit(0);  /* exiting */
-    } else {
-      console.log(`Invalid command: ${command}`);
-      process.stdout.write(prompt);
-      process.stdin.resume();
-    }
-});
-
-
 /*if (process.argv.length != 3) {
   process.stdout.write(`Usage ${process.argv[1]} port Number`);
   process.exit(1);
