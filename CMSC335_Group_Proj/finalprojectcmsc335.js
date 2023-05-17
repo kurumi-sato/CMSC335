@@ -33,17 +33,17 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 app.post("/processApplication", async (request, response) => {
   const { name, email, gpa, year, type, reason, comment } =  request.body;
-  const v = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
+  const v = { name: name, email: email, gpa: gpa, year: year.value, type: type, reason:reason, comment:comment };
   await processInsert(v);
   const students = await processTable();
   var htmlcode = "<table border='1'> </tr> <th>Name</th> <th>Year</th>  </tr> ";
     students.forEach(element => {
 
-      htmlcode += '<tr>' + '<td> ' + element.name + ' </td> <td> ' + element.year + '</td> </tr>';
+      htmlcode += '<tr>' + '<td> ' + element.name + ' </td> <td> ' + element.year.value + '</td> </tr>';
     });
 
     htmlcode += " </table>";
-    const variables = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment, table: htmlcode };
+    const variables = { name: name, email: email, gpa: gpa, year: year.value, type: type, reason:reason.value, comment:comment, table: htmlcode };
     response.render("confirmation", variables);
 }); 
 
