@@ -38,7 +38,7 @@ app.post("/processApplication", (request, response) => {
   const v = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
   const variables = {};
   processInsert(v);
-  process();
+  processTable();
 
   async function processInsert(v) {
 
@@ -56,7 +56,7 @@ app.post("/processApplication", (request, response) => {
     const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(applicant);
   }
   
-  async function process() {
+  async function processTable() {
     try {
       await client.connect();
       let filter = {};
@@ -71,7 +71,7 @@ app.post("/processApplication", (request, response) => {
         htmlcode += '<tr>' + '<td> ' + element.name + ' </td> <td> ' + element.year + '</td> </tr>';
       });
       htmlcode += " </table>";
-      variables = { table: htmlcode };
+      variables = { table: htmlcode, name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
     } catch (e) {
       console.error(e);
     } finally {
