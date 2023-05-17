@@ -82,6 +82,23 @@ async function processTable() {
   }
 }
 
+async function removeStudents() {
+  result = null;
+  try {
+      await client.connect();
+      console.log("***** Clearing Collection *****");
+      result = await client.db(databaseAndCollection.db)
+      .collection(databaseAndCollection.collection)
+      .deleteMany({});
+      console.log(`Deleted student ${result.deletedCount}`);
+  } catch (e) {
+      console.error(e);
+  } finally {
+      await client.close();
+      return result.deletedCount;
+  }
+}
+
 
 
 
