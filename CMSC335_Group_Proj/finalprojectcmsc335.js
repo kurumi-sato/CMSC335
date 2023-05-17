@@ -104,19 +104,6 @@ const filename = process.argv[2];
 const prompt = "Type stop to shutdown the server: ";
 process.stdout.write(prompt);
 
-process.stdin.on("readable", function () {
-  let dataInput = process.stdin.read();
-  let command = dataInput.trim();
-  if (command === "stop") {
-      console.log("Shutting down the server");
-      process.exit(0);  /* exiting */
-    } else {
-      console.log(`Invalid command: ${command}`);
-      process.stdout.write(prompt);
-      process.stdin.resume();
-    }
-});
-
 const portNumber = process.argv[2];
 
 app.listen(portNumber);
@@ -130,5 +117,3 @@ console.log(`Web server started and running at http://localhost:${portNumber}`);
 
 //app.listen(portNumber);
 console.log(`Web server started and running at https://finalprojectcmsc335.onrender.com`);
-
-
