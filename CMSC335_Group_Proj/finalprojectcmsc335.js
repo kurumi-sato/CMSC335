@@ -36,9 +36,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.post("/processApplication", (request, response) => {
   const { name, email, gpa, year, type, reason, comment } =  request.body;
   const v = { name: name, email: email, gpa: gpa, year: year, type: type, reason:reason, comment:comment };
+  const variables = {};
   processInsert(v);
   process();
-
 
   async function processInsert(v) {
 
@@ -52,36 +52,32 @@ app.post("/processApplication", (request, response) => {
         await client.close();
     }
   }
-
-async function insertData(client, databaseAndCollection, applicant) {
+  async function insertData(client, databaseAndCollection, applicant) {
     const result = await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(applicant);
-}
-
-
-async function process() {
-
-try {
-  await client.connect();
-  let filter = {};
-  const cursor = client.db(databaseAndCollection.db)
+  }
+  
+  async function process() {
+    try {
+      await client.connect();
+      let filter = {};
+    
+      const cursor = client.db(databaseAndCollection.db)
       .collection(databaseAndCollection.collection).find(filter);
       
       /* Turn this into a table to add as html code into the final page*/
-  const result = await cursor.toArray();
-  var htmlcode = "<table border='1'> </tr> <th>Name</th> <th>Year</th>  </tr> ";
-  result.forEach(element => {
-
-    htmlcode += '<tr>' + '<td> ' + element.name + ' </td> <td> ' + element.year + '</td> </tr>';
-  });
-
-  htmlcode += " </table>";
-  const variables = { table: htmlcode };
-  response.render("confirmation", variables);
-} catch (e) {
-  console.error(e);
-} finally {
-  await client.close();
-}}
+      const result = await cursor.toArray();
+      var htmlcode = "<table border='1'> </tr> <th>Name</th> <th>Year</th>  </tr> ";
+      result.forEach(element => {
+        htmlcode += '<tr>' + '<td> ' + element.name + ' </td> <td> ' + element.year + '</td> </tr>';
+      });
+      htmlcode += " </table>";
+      variables = { table: htmlcode };
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await client.close();
+    }}
+    response.render("confirmation", variables);
 }); 
 
 
@@ -92,9 +88,14 @@ if (process.argv.length != 3) {
   process.stdout.write(`Usage ${process.argv[1]} port Number`);
   process.exit(1);
 }
+const http = require('http');
+const port = process.env.PORT || 5000;
+const server = http.createServer(app);
 
-app.listen(portNumber);
+server.listen(port, () => {
+  console.log(`Started on port ${port}`);
+});
+
 console.log(`Web server started and running at https://finalprojectcmsc335.onrender.com`);
-
 
 
